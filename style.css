@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Silkscreen:wght@700&display=swap');
+
+/* ---------- Paleta ---------- */
+:root {
+  --fundo: #1b1f2a;
+  --vermelho: #d6332f;
+  --vermelho-escuro: #9e1f1d;
+  --creme: #fff4e0;
+  --tela: #cfe3bd;
+  --tela-escura: #8fae7c;
+  --tinta: #1d2a1f;
+  --amarelo: #f5c518;
+  --azul: #23345e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--fundo);
+}
+
+/* O body vira o corpo da Pokédex */
+body {
+  max-width: 440px;
+  margin: 32px auto;
+  padding: 28px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--vermelho);
+  border-radius: 28px;
+  border-bottom: 10px solid var(--vermelho-escuro);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: var(--creme);
+}
+
+/* ---------- Topo: título e busca ---------- */
+h1 {
+  margin: 0 0 18px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+body > div:nth-of-type(1) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+body > div:nth-of-type(1) h1,
+body > div:nth-of-type(1) label {
+  flex: 1 1 100%;
+}
+
+body > div:nth-of-type(1) h1 {
+  margin-bottom: 4px;
+}
+
+body > div:nth-of-type(1) label {
+  margin-bottom: 0;
+}
+
+#pokemon {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 12px 18px;
+  border: 3px solid var(--vermelho-escuro);
+  border-radius: 999px;
+  background: var(--creme);
+  font: inherit;
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+#pokemon::placeholder {
+  color: #7a7a6a;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    background-color 0.15s ease;
+}
+
+button:active {
+  transform: translateY(2px) scale(0.97);
+}
+
+#btnProcurar {
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--azul);
+  color: var(--creme);
+  font-weight: 800;
+  box-shadow: 0 4px 0 #121c36;
+}
+
+#btnProcurar:hover {
+  background: #2e4580;
+}
+
+/* ---------- Tela da Pokédex ---------- */
+body > div:nth-of-type(2) {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  grid-template-areas:
+    'esq tela dir'
+    '.   msg  .';
+  align-items: center;
+  gap: 12px;
+  padding: 18px 14px;
+  background: var(--vermelho-escuro);
+  border-radius: 20px;
+}
+
+#imgPokemon {
+  grid-area: tela;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 12px;
+  background: var(--tela);
+  border: 6px solid var(--tela-escura);
+  border-radius: 14px;
+  box-shadow: inset 0 4px 14px rgba(0, 0, 0, 0.25);
+  image-rendering: pixelated;
+}
+
+#volta {
+  grid-area: esq;
+}
+
+#vai {
+  grid-area: dir;
+}
+
+#volta,
+#vai {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--creme);
+  color: var(--tinta);
+  font-family: 'Silkscreen', monospace;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 0 #c9b690;
+}
+
+#volta:hover,
+#vai:hover {
+  background: #ffffff;
+}
+
+#erro {
+  grid-area: msg;
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--creme);
+  border-radius: 10px;
+  color: #8a1c1a;
+  font-weight: 800;
+  text-align: center;
+}
+
+#erro:empty {
+  display: none;
+}
+
+/* ---------- Rodapé: shiny ---------- */
+body > div:nth-of-type(3) {
+  display: flex;
+  justify-content: center;
+}
+
+#shiny {
+  padding: 12px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--amarelo);
+  color: var(--tinta);
+  font-weight: 800;
+  box-shadow: 0 4px 0 #b38f0d;
+}
+
+#shiny:hover {
+  background: #ffd83a;
+}
+
+/* ---------- Acessibilidade e mobile ---------- */
+:focus-visible {
+  outline: 3px solid var(--creme);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  body {
+    margin: 0;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+}
