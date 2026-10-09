@@ -2,13 +2,14 @@ const btnProcurar = document.getElementById('btnProcurar');
 const img = document.getElementById('imgPokemon');
 const volta = document.getElementById('volta');
 const vai = document.getElementById('vai');
-const bntShiny = document.getElementById('shiny');
+const bntShiny = document.getElementById('btnShiny');
 const erro = document.getElementById('erro');
 const infPokemon = document.getElementById('infPokemon');
 
 let costas;
 let frente;
-let shiny;
+let shinyFrente;
+let shinyCosta;
 
 btnProcurar.addEventListener('click', async function buscarDados() {
   const pokemon = document.getElementById('pokemon').value;
@@ -36,7 +37,9 @@ btnProcurar.addEventListener('click', async function buscarDados() {
 
       frente = dados['sprites']['front_default'];
       costas = dados['sprites']['back_default'];
-      shiny = dados['sprites']['front_shiny'];
+      shinyFrente = dados['sprites']['front_shiny'];
+      shinyCosta = dados['sprites']['back_shiny'];
+
       const geracao = dados.species.url;
 
       const respostaGeracao = await fetch(geracao);
@@ -53,7 +56,7 @@ btnProcurar.addEventListener('click', async function buscarDados() {
         <p> Peso : ${dados['weight'] / 10}kg</p>
       `;
 
-      return (frente, costas, shiny);
+      return (frente, costas, shinyFrente, shinyCosta);
     }
   } catch (erro) {
     erro.textContent = 'Digite o nome de um pokemon válido';
@@ -64,18 +67,35 @@ btnProcurar.addEventListener('click', async function buscarDados() {
   }
 });
 
-volta.addEventListener('click', () => {
-  img.removeAttribute('scr');
-  img.src = costas;
-});
-
-vai.addEventListener('click', () => {
-  img.removeAttribute('scr');
-  img.src = frente;
-});
-
 bntShiny.addEventListener('click', () => {
-  img.removeAttribute('scr');
-  img.src = shiny;
-  img.classList.add('shiny');
+  if (!img.classList.contains('shiny')) {
+    img.removeAttribute('scr');
+    img.src = shinyFrente;
+    img.classList.add('shiny');
+    bntShiny.textContent = 'Ver Normal';
+  } else {
+    img.removeAttribute('scr');
+    img.src = frente;
+    img.classList.remove('shiny');
+    bntShiny.textContent = 'Ver shiny';
+  }
+});
+document.getElementById('pokedex').addEventListener('click', (e) => {
+  if (e.target.id === 'volta') {
+    if (img.classList == 'shiny') {
+      img.removeAttribute('scr');
+      img.src = shinyCosta;
+    } else {
+      img.removeAttribute('scr');
+      img.src = costas;
+    }
+  } else if (e.target.id === 'vai') {
+    if (img.classList == 'shiny') {
+      img.removeAttribute('scr');
+      img.src = shinyFrente;
+    } else {
+      img.removeAttribute('scr');
+      img.src = frente;
+    }
+  }
 });

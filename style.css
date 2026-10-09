@@ -132,6 +132,12 @@ body > div:nth-of-type(2) > div:first-child {
   image-rendering: pixelated;
 }
 
+/* esconde o ícone de imagem quebrada quando ainda não há imagem */
+#imgPokemon[src=''],
+#imgPokemon:not([src]) {
+  visibility: hidden;
+}
+
 #volta {
   grid-area: esq;
 }
@@ -174,13 +180,13 @@ body > div:nth-of-type(2) > div:first-child {
   display: none;
 }
 
-/* linha do botão shiny */
+/* linha do botão btnShiny */
 body > div:nth-of-type(2) > div:last-child {
   display: flex;
   justify-content: center;
 }
 
-#shiny {
+#btnShiny {
   padding: 12px 28px;
   border: 0;
   border-radius: 999px;
@@ -190,7 +196,7 @@ body > div:nth-of-type(2) > div:last-child {
   box-shadow: 0 4px 0 #b38f0d;
 }
 
-#shiny:hover {
+#btnShiny:hover {
   background: #ffd83a;
 }
 
