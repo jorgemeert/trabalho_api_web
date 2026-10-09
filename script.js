@@ -4,13 +4,15 @@ const volta = document.getElementById('volta');
 const vai = document.getElementById('vai');
 const bntShiny = document.getElementById('shiny');
 const erro = document.getElementById('erro');
+const infPokemon = document.getElementById('infPokemon');
+
 let costas;
 let frente;
 let shiny;
 
 btnProcurar.addEventListener('click', async function buscarDados() {
   const pokemon = document.getElementById('pokemon').value;
-
+  infPokemon.textContent = '';
   try {
     const resposta = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
@@ -35,6 +37,21 @@ btnProcurar.addEventListener('click', async function buscarDados() {
       frente = dados['sprites']['front_default'];
       costas = dados['sprites']['back_default'];
       shiny = dados['sprites']['front_shiny'];
+      const geracao = dados.species.url;
+
+      const respostaGeracao = await fetch(geracao);
+      const dadoGeracao = await respostaGeracao.json();
+
+      dados.types.forEach((item) => {
+        infPokemon.innerHTML += `<div class='tipoPokemon'> <p>${item.type.name} </p> </div>`;
+      });
+
+      infPokemon.innerHTML += `
+        <p>${dadoGeracao.generation.name}</p>
+        <p> Nome : ${dados['name']}</p>
+        <p> Altura : ${dados['height'] * 10}cm </p>
+        <p> Peso : ${dados['weight'] / 10}kg</p>
+      `;
 
       return (frente, costas, shiny);
     }
@@ -60,4 +77,5 @@ vai.addEventListener('click', () => {
 bntShiny.addEventListener('click', () => {
   img.removeAttribute('scr');
   img.src = shiny;
+  img.classList.add('shiny');
 });
