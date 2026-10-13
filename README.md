@@ -78,4 +78,4 @@ trabalho_web/
  
 Dados e imagens fornecidos pela [PokéAPI](https://pokeapi.co/). Pokémon e seus nomes são marcas da Nintendo, The Pokémon Company e Game Freak; este projeto é apenas educacional.
  
-Claude terminou a resposta
+
